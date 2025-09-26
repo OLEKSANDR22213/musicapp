@@ -22,19 +22,19 @@ class _PlaylistsPageState extends State<PlaylistsPage> {
     final title = await showDialog<String>(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text('Новый плейлист'),
+        title: const Text('New playlist'),
         content: TextField(
           controller: titleCtrl,
-          decoration: const InputDecoration(hintText: 'Например, Lofi Evening'),
+          decoration: const InputDecoration(hintText: 'For example, Lofi Evening'),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Отмена'),
+            child: const Text('Cancel'),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, titleCtrl.text.trim()),
-            child: const Text('Создать'),
+            child: const Text('Create'),
           ),
         ],
       ),
@@ -44,7 +44,7 @@ class _PlaylistsPageState extends State<PlaylistsPage> {
     }
   }
 
-  /// Играть весь плейлист через глобальный AudioController
+
   Future<void> _playPlaylist(String playlistId) async {
     final snap = await FirebaseFirestore.instance
         .collection('playlists/$playlistId/tracks')
@@ -54,7 +54,7 @@ class _PlaylistsPageState extends State<PlaylistsPage> {
     if (snap.docs.isEmpty) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('В плейлисте пока нет треков')),
+          const SnackBar(content: Text('There are no tracks in the playlist yet.')),
         );
       }
       return;
@@ -82,7 +82,7 @@ class _PlaylistsPageState extends State<PlaylistsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Мои плейлисты')),
+      appBar: AppBar(title: const Text('My playlists')),
       floatingActionButton: FloatingActionButton(
         onPressed: _create,
         child: const Icon(Icons.add),
@@ -94,7 +94,7 @@ class _PlaylistsPageState extends State<PlaylistsPage> {
             return const Center(child: CircularProgressIndicator());
           }
           if (!snap.hasData || snap.data!.docs.isEmpty) {
-            return const Center(child: Text('Плейлистов пока нет'));
+            return const Center(child: Text('There are no playlists yet'));
           }
 
           final docs = snap.data!.docs;
@@ -104,7 +104,7 @@ class _PlaylistsPageState extends State<PlaylistsPage> {
             separatorBuilder: (_, __) => const Divider(height: 1),
             itemBuilder: (context, i) {
               final p = docs[i];
-              final title = p['title'] as String? ?? 'Без названия';
+              final title = p['title'] as String? ?? 'Untitled';
               final updated = (p['updatedAt'] as Timestamp?)
                   ?.toDate()
                   .toLocal()
@@ -115,7 +115,7 @@ class _PlaylistsPageState extends State<PlaylistsPage> {
               return ListTile(
                 leading: const Icon(Icons.queue_music),
                 title: Text(title),
-                subtitle: Text('обновлён: ${updated ?? "—"}'),
+                subtitle: Text('updated: ${updated ?? "—"}'),
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -127,28 +127,28 @@ class _PlaylistsPageState extends State<PlaylistsPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
-                      tooltip: 'Играть плейлист',
+                      tooltip: 'Play playlist',
                       icon: const Icon(Icons.play_arrow),
                       onPressed: () => _playPlaylist(p.id),
                     ),
                     IconButton(
-                      tooltip: 'Удалить плейлист',
+                      tooltip: 'Delete playlist',
                       icon: const Icon(Icons.delete_outline),
                       onPressed: () async {
                         final yes = await showDialog<bool>(
                           context: context,
                           builder: (_) => AlertDialog(
-                            title: const Text('Удалить плейлист?'),
+                            title: const Text('Delete playlist?'),
                             content: const Text(
-                                'Плейлист и его треки будут удалены.'),
+                                'The playlist and its tracks will be deleted.'),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(context, false),
-                                child: const Text('Отмена'),
+                                child: const Text('Cancel'),
                               ),
                               FilledButton(
                                 onPressed: () => Navigator.pop(context, true),
-                                child: const Text('Удалить'),
+                                child: const Text('Delete'),
                               ),
                             ],
                           ),

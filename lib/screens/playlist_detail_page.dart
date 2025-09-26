@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../playlist_service.dart';
 import '../widgets/audio_mini_player.dart';
 import '../audio_controller.dart';
-import '../main.dart' show Track; // модель трека
+import '../main.dart' show Track;
 
 class PlaylistDetailPage extends StatefulWidget {
   final String playlistId;
@@ -21,7 +21,7 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final a = context.watch<AudioController>(); // слушаем глобальный плеер
+    final a = context.watch<AudioController>();
 
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
@@ -31,7 +31,7 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage> {
           if (!snap.hasData) return const Center(child: CircularProgressIndicator());
           final docs = snap.data!.docs;
           if (docs.isEmpty) {
-            return const Center(child: Text('Треков нет — добавь из поиска'));
+            return const Center(child: Text('There are no tracks - add from the search'));
           }
 
           // Преобразуем документы в список Track
@@ -76,7 +76,7 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage> {
                   spacing: 4,
                   children: [
                     IconButton.filledTonal(
-                      tooltip: isPlaying ? 'Пауза' : 'Играть',
+                      tooltip: isPlaying ? 'Pause' : 'Play',
                       icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
                       onPressed: () {
                         final ctrl = context.read<AudioController>();
@@ -88,7 +88,7 @@ class _PlaylistDetailPageState extends State<PlaylistDetailPage> {
                       },
                     ),
                     IconButton(
-                      tooltip: 'Удалить трек',
+                      tooltip: 'Delete track',
                       icon: const Icon(Icons.delete_outline),
                       onPressed: () => _svc.removeTrack(widget.playlistId, t.id),
                     ),
