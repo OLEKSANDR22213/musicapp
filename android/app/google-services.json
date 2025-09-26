@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "42939606315",
+    "project_id": "msap-e1ba0",
+    "storage_bucket": "msap-e1ba0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42939606315:android:9cc8d4988b6a5b9ce3116e",
+        "android_client_info": {
+          "package_name": "com.example.musicaplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGd7qkfpV_9bjvxBKBjbCr2nc5TY1vY84"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

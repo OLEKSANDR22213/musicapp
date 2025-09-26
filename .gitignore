@@ -1,0 +1,29 @@
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.melos_tool/
+build/
+coverage/
+*.lock.hive
+
+# Android/Gradle
+.gradle/
+**/build/
+local.properties
+*.keystore
+*.jks
+key.properties
+
+# Xcode/iOS (если есть iOS)
+ios/Pods/
+ios/.symlinks/
+DerivedData/
+
+# IDE
+.idea/
+*.iml
+
+# Misc
+*.log
