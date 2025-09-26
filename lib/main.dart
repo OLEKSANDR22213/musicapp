@@ -167,13 +167,13 @@ class _SearchPageState extends State<SearchPage> {
       context: context,
       builder: (_) => SafeArea(
         child: items.isEmpty
-            ? const SizedBox(height: 140, child: Center(child: Text('Нет плейлистов. Создай в меню «Мои плейлисты».')))
+            ? const SizedBox(height: 140, child: Center(child: Text('There are no playlists. Create one in the "My Playlists" menu..')))
             : ListView(
           shrinkWrap: true,
           children: items.map((d) {
             return ListTile(
               leading: const Icon(Icons.queue_music),
-              title: Text(d['title'] ?? 'Без названия'),
+              title: Text(d['title'] ?? 'Untitled'),
               onTap: () => Navigator.pop(context, d.id),
             );
           }).toList(),
@@ -194,7 +194,7 @@ class _SearchPageState extends State<SearchPage> {
 
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Добавлено в плейлист')),
+        const SnackBar(content: Text('Added to playlist')),
       );
     }
   }
